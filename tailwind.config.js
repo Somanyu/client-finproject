@@ -11,8 +11,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
-        sourceSerifPro: ['Source Serif Pro', ...defaultTheme.fontFamily.sans],
+        archivo: ['Archivo', ...defaultTheme.fontFamily.sans],
+        roboto: ['Roboto', ...defaultTheme.fontFamily.sans],
       },
     },
   },
