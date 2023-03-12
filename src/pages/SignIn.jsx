@@ -18,7 +18,7 @@ function SignIn() {
 
           {/* First Content */}
           <div className="col-span-12 lg:col-span-4 md:col-span-4 py-12 px- md:px-5 lg:px-10 xl:px-28 text-sm rounded-lg bg-transparent dark:bg-gray-800 dark:text-blue-400" role="alert">
-            <form className="">
+            <form className="animate__animated animate__slideInLeft animate__faster">
               <h1 className="font-bold text-gray-900 dark:text-white text-left font-archivo text-3xl">Welcome back</h1>
               <p className="text-left mb-14 mt-2 font-light text-gray-500 dark:text-gray-400 font-roboto">Continue your journey with your financial independence.</p>
 
@@ -52,7 +52,7 @@ function SignIn() {
           </div>
 
           {/* Second Content */}
-          <div className="col-span-4 hidden lg:flex md:flex px-4 py-4 text-sm m-1 rounded-2xl dark:bg-gray-800 dark:text-red-400" style={{ backgroundColor: 'rgb(161, 161, 170)', backgroundImage: 'radial-gradient(at 14% 6%, rgb(6, 182, 212) 0, transparent 93%), radial-gradient(at 74% 5%, rgb(254, 240, 138) 0, transparent 73%), radial-gradient(at 2% 64%, rgb(30, 58, 138) 0, transparent 69%), radial-gradient(at 44% 57%, rgb(209, 250, 229) 0, transparent 32%), radial-gradient(at 35% 70%, rgb(71, 85, 105) 0, transparent 54%), radial-gradient(at 37% 38%, rgb(16, 185, 129) 0, transparent 88%)' }}>
+          <div className="animate__animated animate__fadeIn col-span-4 hidden lg:flex md:flex px-4 py-4 text-sm m-1 rounded-2xl bg-gradient-to-tr from-sky-400 via-rose-400 to-lime-400 dark:bg-gray-800 dark:text-red-400">
 
             <div className="absolute">
               <Link to="/" type="button" className="text-white font-archivo bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-400 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Sign up</Link>

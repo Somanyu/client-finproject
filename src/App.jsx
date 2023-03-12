@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import 'animate.css';
 
 import './App.css';
 import SignIn from './pages/SignIn';

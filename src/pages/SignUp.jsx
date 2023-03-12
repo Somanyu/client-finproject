@@ -18,7 +18,7 @@ function SignUp() {
 
           {/* First Content */}
           <div className="col-span-12 lg:col-span-4 md:col-span-4 py-12 px- md:px-5 lg:px-10 xl:px-28 text-sm rounded-lg bg-transparent dark:bg-gray-800 dark:text-blue-400" role="alert">
-            <form className="">
+            <form className="animate__animated animate__slideInLeft animate__faster">
               <h1 className="font-bold text-gray-900 dark:text-white text-left font-archivo text-3xl">Create an account</h1>
               <p className="text-left mb-14 mt-2 font-light text-gray-500 dark:text-gray-400 font-roboto">Let&#39;s get you started with expenses with a free account.</p>
 
@@ -52,7 +52,7 @@ function SignUp() {
           </div>
 
           {/* Second Content */}
-          <div className="col-span-4 hidden lg:flex md:flex px-4 py-4 text-sm m-1 rounded-2xl dark:bg-gray-800 dark:text-red-400" style={{ backgroundColor: 'rgb(254, 226, 226)', backgroundImage: 'radial-gradient(at 5% 65%, rgb(187, 247, 208) 0, transparent 7%), radial-gradient(at 98% 57%, rgb(209, 250, 229) 0, transparent 86%), radial-gradient(at 93% 28%, rgb(110, 231, 183) 0, transparent 39%), radial-gradient(at 68% 42%, rgb(6, 182, 212) 0, transparent 81%), radial-gradient(at 59% 8%, rgb(91, 33, 182) 0, transparent 72%)' }}>
+          <div className="animate__animated animate__fadeIn col-span-4 hidden lg:flex md:flex px-4 py-4 text-sm m-1 rounded-2xl dark:bg-gray-800 dark:text-red-400" style={{ backgroundColor: 'rgb(254, 226, 226)', backgroundImage: 'radial-gradient(at 5% 65%, rgb(187, 247, 208) 0, transparent 7%), radial-gradient(at 98% 57%, rgb(209, 250, 229) 0, transparent 86%), radial-gradient(at 93% 28%, rgb(110, 231, 183) 0, transparent 39%), radial-gradient(at 68% 42%, rgb(6, 182, 212) 0, transparent 81%), radial-gradient(at 59% 8%, rgb(91, 33, 182) 0, transparent 72%)' }}>
 
             <div className="absolute">
               <Link to="/signin" type="button" className="text-white font-archivo bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-400 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Log in</Link>
