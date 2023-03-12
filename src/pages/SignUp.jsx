@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import { Link } from 'react-router-dom';
 
 function SignUp() {
   return (
@@ -37,7 +38,7 @@ function SignUp() {
               </div>
 
               <div className="flex flex-col mt-12">
-                <button type="button" className="text-white mb-3 bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300 font-medium rounded-full text-base px-5 py-2.5 text-center mr-2 dark:bg-blue-600 font-archivo">Create account</button>
+                <button type="button" className="text-white mb-3 hover:drop-shadow-lg bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300 font-medium rounded-full text-base px-5 py-2.5 text-center mr-2 dark:bg-blue-600 font-archivo">Create account</button>
                 <button type="button" className="text-black flex justify-center bg-transparent border-2 border-black focus:outline-none focus:ring-4 focus:ring-gray-400 font-medium rounded-full text-base px-5 py-2.5 text-center mr-2 mb-2 font-archivo">
                   <FcGoogle className="text-2xl mr-2" />
                   Sign up with Google
@@ -46,7 +47,7 @@ function SignUp() {
             </form>
             <p className="mb-3 mt-4 md:block lg:hidden xl:hidden font-light text-gray-500 dark:text-gray-400 font-roboto text-center">
               Already have a account.
-              <a href="/" className="font-medium text-blue-600 underline dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:no-underline pl-1">Log in</a>
+              <Link to="/signin" className="font-medium text-blue-600 underline dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:no-underline pl-1">Log in</Link>
             </p>
           </div>
 
@@ -54,7 +55,7 @@ function SignUp() {
           <div className="col-span-4 hidden lg:flex md:flex px-4 py-4 text-sm m-1 rounded-2xl dark:bg-gray-800 dark:text-red-400" style={{ backgroundColor: 'rgb(254, 226, 226)', backgroundImage: 'radial-gradient(at 5% 65%, rgb(187, 247, 208) 0, transparent 7%), radial-gradient(at 98% 57%, rgb(209, 250, 229) 0, transparent 86%), radial-gradient(at 93% 28%, rgb(110, 231, 183) 0, transparent 39%), radial-gradient(at 68% 42%, rgb(6, 182, 212) 0, transparent 81%), radial-gradient(at 59% 8%, rgb(91, 33, 182) 0, transparent 72%)' }}>
 
             <div className="absolute">
-              <button type="button" className="text-white font-archivo bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-400 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Log in</button>
+              <Link to="/signin" type="button" className="text-white font-archivo bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-400 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Log in</Link>
             </div>
             <div className="flex justify-center flex-col">
               <img className="mx-auto" src="/assets/signupsvg.svg" width="450" alt="svg_logo" />
