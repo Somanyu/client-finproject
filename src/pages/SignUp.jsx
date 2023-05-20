@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUpSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -33,6 +35,7 @@ const SignUpSchema = Yup.object().shape({
 function SignUp() {
   return (
     <div>
+      <ToastContainer />
       <div className="flex relative p-8">
         <img className="h-auto w-20 lg:w-8" src="/assets/logoipsum-247.svg" alt="website logo" />
         <h2 className="text-xl hidden lg:block xl:block font-archivo pl-3 font-bold text-black">Finance WP</h2>
@@ -49,16 +52,63 @@ function SignUp() {
               validationSchema={SignUpSchema}
               onSubmit={async (values, { resetForm }) => {
                 try {
-                  await axios.post('http://localhost:3001/auth/register', values);
+                  const response = await axios.post('http://localhost:3001/auth/register', values);
                   resetForm({ values: '' });
-                  // console.log(res.data);
-                } catch {
-                  // console.error('error');
+                  if (response.status === 201) {
+                    // If user sign up is success.
+                    toast.success(response.data.success, {
+                      position: 'top-center',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: false,
+                      draggable: false,
+                      progress: undefined,
+                      theme: 'colored',
+                    });
+                  } else {
+                    // If sign up failed.
+                    toast.error(response.data.error, {
+                      position: 'top-center',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: false,
+                      draggable: false,
+                      progress: undefined,
+                      theme: 'colored',
+                    });
+                  }
+                } catch (error) {
+                  if (error.response) {
+                    // Server error occurred.
+                    toast.error(error.response.data.error, {
+                      position: 'top-center',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: false,
+                      draggable: false,
+                      progress: undefined,
+                      theme: 'colored',
+                    });
+                  } else {
+                    toast.error(error, {
+                      position: 'top-center',
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: false,
+                      draggable: false,
+                      progress: undefined,
+                      theme: 'colored',
+                    });
+                  }
                 }
               }}
             >
               {({ errors, touched }) => (
-                <Form>
+                <Form className="animate__animated animate__slideInLeft animate__faster">
                   <h1 className="font-bold text-gray-900 dark:text-white text-left font-archivo text-3xl">Create an account</h1>
                   <p className="text-left mb-14 mt-2 font-light text-gray-500 dark:text-gray-400 font-roboto">Let&#39;s get you started with expenses with a free account.</p>
                   <div className="relative z-0 mb-7">
