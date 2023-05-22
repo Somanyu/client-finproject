@@ -1,8 +1,10 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-console */
 /* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -16,6 +18,9 @@ import {
 } from 'chart.js';
 import ProfileCard from '../components/ProfileCard';
 import Table from '../components/Table';
+
+axios.defaults.withCredentials = true;
+let FIRST_RENDER = true;
 
 ChartJS.register(
   CategoryScale,
@@ -43,7 +48,7 @@ export const options = {
 
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-export const data = {
+export const chartData = {
   labels,
   datasets: [
     {
@@ -56,11 +61,50 @@ export const data = {
 };
 
 function User() {
+  const [userData, setUserData] = useState();
+
+  const sendRequest = async () => {
+    const response = await axios.get('http://localhost:3001/user', {
+      withCredentials: true,
+    }).catch((err) => console.log(err));
+    const data = await response.data;
+    return data;
+  };
+
+  const refreshToken = async () => {
+    const tokenResponse = await axios.get('http://localhost:3001/refresh', {
+      withCredentials: true,
+    }).catch((err) => console.log(err));
+
+    const tokenData = await tokenResponse.data;
+    return tokenData;
+  };
+
+  useEffect(() => {
+    if (FIRST_RENDER) {
+      sendRequest().then((data) => setUserData(data));
+      FIRST_RENDER = false;
+    }
+
+    const refreshTokenInterval = setInterval(() => {
+      refreshToken().then((data) => setUserData(data));
+    }, 1000 * 30);
+
+    return () => clearInterval(refreshTokenInterval);
+  }, []);
+
   return (
     <div className="container mx-auto p-5">
+      {userData && (
+      <h1>
+        {userData.user.email}
+        {' '}
+        {userData.user.fullName}
+      </h1>
+      )}
       <div className="grid grid-cols-12 grid-rows-1 m-8 gap-y-8 gap-x-8">
         <div className="col-span-12 col-start-1 lg:col-start-2 lg:col-span-4 row-span-1">
-          <ProfileCard />
+          {userData && <ProfileCard userData={userData.user} />}
         </div>
         <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-7 lg:col-start-6 lg:col-end-12 row-span-3">
           <Table />
@@ -69,12 +113,12 @@ function User() {
       <div className="grid grid-cols-12 gap-x-8 gap-y-8">
         <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-6 lg:col-start-2 lg:col-end-7">
           <div className="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <Line options={options} data={data} />
+            <Line options={options} data={chartData} />
           </div>
         </div>
         <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-6 lg:col-start-7 lg:col-end-12">
           <div className="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <Line options={options} data={data} />
+            <Line options={options} data={chartData} />
           </div>
         </div>
       </div>
