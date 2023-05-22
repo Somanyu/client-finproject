@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -21,6 +21,7 @@ const SignInSchema = Yup.object().shape({
 });
 
 function SignIn() {
+  const history = useNavigate();
   return (
     <div>
       <ToastContainer />
@@ -42,6 +43,7 @@ function SignIn() {
                   resetForm({ values: '' });
                   if (response.status === 201) {
                     // If user sign in is success.
+                    history('/user');
                     toast.success(response.data.success, {
                       position: 'top-center',
                       autoClose: 5000,
