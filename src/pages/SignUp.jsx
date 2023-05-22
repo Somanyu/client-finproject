@@ -5,7 +5,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -27,12 +27,13 @@ const SignUpSchema = Yup.object().shape({
     .required('Field cannot be empty')
     .matches(/^[0-9]+$/, 'Only numbers are allowed'),
   password: Yup.string()
-    .min(8, 'Too Short!')
+    .min(8, 'Password must be at least 8 characters!')
     .max(50, 'Too Long!')
     .required('Field cannot be empty'),
 });
 
 function SignUp() {
+  const history = useNavigate();
   return (
     <div>
       <ToastContainer />
@@ -56,6 +57,7 @@ function SignUp() {
                   resetForm({ values: '' });
                   if (response.status === 201) {
                     // If user sign up is success.
+                    history('/signin');
                     toast.success(response.data.success, {
                       position: 'top-center',
                       autoClose: 5000,
