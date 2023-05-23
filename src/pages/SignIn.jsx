@@ -10,6 +10,8 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../store';
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string()
@@ -22,6 +24,7 @@ const SignInSchema = Yup.object().shape({
 
 function SignIn() {
   const history = useNavigate();
+  const dispatch = useDispatch();
   return (
     <div>
       <ToastContainer />
@@ -44,6 +47,7 @@ function SignIn() {
                   if (response.status === 201) {
                     // If user sign in is success.
                     history('/user');
+                    dispatch(authActions.setLoggedIn());
                     toast.success(response.data.success, {
                       position: 'top-center',
                       autoClose: 5000,
