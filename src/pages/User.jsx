@@ -20,7 +20,7 @@ import ProfileCard from '../components/ProfileCard';
 import Table from '../components/Table';
 
 axios.defaults.withCredentials = true;
-let FIRST_RENDER = true;
+// let FIRST_RENDER = true;
 
 ChartJS.register(
   CategoryScale,
@@ -80,14 +80,32 @@ function User() {
     return tokenData;
   };
 
+  // useEffect(() => {
+  //   if (FIRST_RENDER) {
+  //     sendRequest().then((data) => setUserData(data));
+  //     FIRST_RENDER = false;
+  //   }
+
+  //   const refreshTokenInterval = setInterval(() => {
+  //     refreshToken().then((data) => setUserData(data));
+  //   }, 1000 * 30);
+
+  //   return () => clearInterval(refreshTokenInterval);
+  // }, []);
+
   useEffect(() => {
-    if (FIRST_RENDER) {
-      sendRequest().then((data) => setUserData(data));
-      FIRST_RENDER = false;
-    }
+    sendRequest()
+      .then((data) => setUserData(data))
+      .catch((error) => {
+        console.log(error);
+      });
 
     const refreshTokenInterval = setInterval(() => {
-      refreshToken().then((data) => setUserData(data));
+      refreshToken()
+        .then((data) => setUserData(data))
+        .catch((error) => {
+          console.log(error);
+        });
     }, 1000 * 30);
 
     return () => clearInterval(refreshTokenInterval);
@@ -96,11 +114,11 @@ function User() {
   return (
     <div className="container mx-auto p-5">
       {userData && (
-      <h1>
-        {userData.user.email}
-        {' '}
-        {userData.user.fullName}
-      </h1>
+        <h1>
+          {userData.user.email}
+          {' '}
+          {userData.user.fullName}
+        </h1>
       )}
       <div className="grid grid-cols-12 grid-rows-1 m-8 gap-y-8 gap-x-8">
         <div className="col-span-12 col-start-1 lg:col-start-2 lg:col-span-4 row-span-1">
