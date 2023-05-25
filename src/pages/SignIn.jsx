@@ -11,7 +11,7 @@ import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
-import { authActions } from '../store';
+import { authActions, persistor } from '../store/index';
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string()
@@ -48,6 +48,7 @@ function SignIn() {
                     // If user sign in is success.
                     history('/user');
                     dispatch(authActions.setLoggedIn());
+                    persistor.persist();
                     toast.success(response.data.success, {
                       position: 'top-center',
                       autoClose: 5000,

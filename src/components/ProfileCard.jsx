@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { authActions } from '../store';
+import { authActions, persistor } from '../store';
 
 axios.defaults.withCredentials = true;
 
@@ -32,7 +32,11 @@ function ProfileCard(props) {
   };
 
   const handleLogout = () => {
-    logoutRequest().then(() => dispatch(authActions.setLoggedOut()));
+    localStorage.clear();
+    logoutRequest().then(() => {
+      persistor.purge();
+      dispatch(authActions.setLoggedOut());
+    });
   };
   return (
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 px-4 pt-4">
