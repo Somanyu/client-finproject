@@ -18,6 +18,7 @@ import {
 } from 'chart.js';
 import ProfileCard from '../components/ProfileCard';
 import Table from '../components/Table';
+import TwilioBanner from '../components/TwilioBanner';
 
 axios.defaults.withCredentials = true;
 // let FIRST_RENDER = true;
@@ -112,28 +113,32 @@ function User() {
   }, []);
 
   return (
-    <div className="container mx-auto p-5">
-      <div className="grid grid-cols-12 grid-rows-1 m-8 gap-y-8 gap-x-8">
-        <div className="col-span-12 col-start-1 lg:col-start-2 lg:col-span-4 row-span-1">
-          {userData && <ProfileCard userData={userData.user} />}
-        </div>
-        <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-7 lg:col-start-6 lg:col-end-12 row-span-3">
-          <Table />
-        </div>
-      </div>
-      <div className="grid grid-cols-12 gap-x-8 gap-y-8">
-        <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-6 lg:col-start-2 lg:col-end-7">
-          <div className="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <Line options={options} data={chartData} />
+    <>
+      <TwilioBanner />
+      <div className="container mx-auto p-5">
+        <div className="grid grid-cols-12 grid-rows-1 m-8 gap-y-8 gap-x-8">
+          <div className="col-span-12 col-start-1 lg:col-start-2 lg:col-span-4 row-span-1">
+            {userData && <ProfileCard userData={userData.user} />}
+          </div>
+          <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-7 lg:col-start-6 lg:col-end-12 row-span-3">
+            <Table />
           </div>
         </div>
-        <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-6 lg:col-start-7 lg:col-end-12">
-          <div className="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <Line options={options} data={chartData} />
+        <div className="grid grid-cols-12 gap-x-8 gap-y-8">
+          <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-6 lg:col-start-2 lg:col-end-7">
+            <div className="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <Line options={options} data={chartData} />
+            </div>
+          </div>
+          <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-6 lg:col-start-7 lg:col-end-12">
+            <div className="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+              <Line options={options} data={chartData} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+    </>
   );
 }
 
