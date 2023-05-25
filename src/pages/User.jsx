@@ -113,13 +113,6 @@ function User() {
 
   return (
     <div className="container mx-auto p-5">
-      {userData && (
-        <h1>
-          {userData.user.email}
-          {' '}
-          {userData.user.fullName}
-        </h1>
-      )}
       <div className="grid grid-cols-12 grid-rows-1 m-8 gap-y-8 gap-x-8">
         <div className="col-span-12 col-start-1 lg:col-start-2 lg:col-span-4 row-span-1">
           {userData && <ProfileCard userData={userData.user} />}
