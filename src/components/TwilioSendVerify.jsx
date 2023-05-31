@@ -34,7 +34,7 @@ function TwilioSendVerify() {
         <button
           onClick={handleClick}
           type="button"
-          className={`text-white font-roboto bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 text-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 inline-flex items-center ${loading ? 'cursor-not-allowed opacity-50' : ''}`}
+          className={`text-white font-roboto ${status === 'sent' ? 'bg-green-700 hover:bg-green-800 focus:ring-green-300' : 'bg-red-700 hover:bg-red-800 focus:ring-red-300'} focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2 text-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 inline-flex items-center ${loading ? 'cursor-not-allowed opacity-50' : ''}`}
           disabled={loading}
         >
           {loading && (
