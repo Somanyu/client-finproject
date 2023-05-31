@@ -5,6 +5,7 @@ import {
   BrowserRouter, Routes, Route, Navigate,
 } from 'react-router-dom';
 import 'animate.css';
+import 'flowbite';
 import { useSelector } from 'react-redux';
 
 import './App.css';
