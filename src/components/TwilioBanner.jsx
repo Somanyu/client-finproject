@@ -5,6 +5,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
 import { CgTwilio } from 'react-icons/cg';
+import { FcSms, FcApproval, FcMoneyTransfer } from 'react-icons/fc';
 import TwilioSendVerify from './TwilioSendVerify';
 
 function TwilioBanner() {
@@ -13,15 +14,15 @@ function TwilioBanner() {
   return (
     <>
       <div>
-        <div id="marketing-banner" tabIndex="-1" className="relative z-50 flex flex-col md:flex-row justify-between p-4 mb-5 -translate-x-1/2 bg-white border border-gray-100 rounded-lg shadow-sm w-3/4 left-1/2 top-6 dark:bg-gray-700 dark:border-gray-600">
+        <div id="marketing-banner" tabIndex="-1" className="relative bg-red-200 z-50 flex flex-col md:flex-row justify-between p-4 mb-5 -translate-x-1/2 border-2 rounded-lg shadow-sm w-3/4 left-1/2 top-6 dark:bg-gray-700 dark:border-gray-600">
           <div className="flex flex-col items-start mb-3 mr-4 md:items-center md:flex-row md:mb-0">
             <a href="https://flowbite.com/" className="flex items-center mb-2 border-gray-200 md:pr-4 md:mr-4 md:border-r md:mb-0 dark:border-gray-600">
               <CgTwilio className="mr-2 text-2xl text-red-600" />
               <span className="self-center text-lg font-semibold whitespace-nowrap dark:text-white font-archivo">Twilio Sandbox</span>
             </a>
-            <p className="flex items-center text-base font-normal text-gray-500 dark:text-gray-400 font-roboto">You need to connect to our Twilio Sandbox for starting with our app. Get started now!</p>
+            <p className="flex items-center text-base font-normal text-black dark:text-gray-400 font-roboto">You need to connect to our Twilio Sandbox for starting with our app. Get started now!</p>
           </div>
-          <button data-modal-target="staticModal" onClick={() => setVisible(true)} data-modal-toggle="staticModal" className="block font-roboto text-white animate-pulse bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" type="button">
+          <button data-modal-target="staticModal" onClick={() => setVisible(true)} data-modal-toggle="staticModal" className="block font-roboto text-white animate-pulse rounded-full bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm px-5 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" type="button">
             Get Started!
           </button>
           {/* <button data-dismiss-target="#marketing-banner" type="button" className="absolute top-2.5 right-2.5 md:relative md:top-auto md:right-auto flex-shrink-0 inline-flex justify-center items-center text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -53,31 +54,43 @@ function TwilioBanner() {
                 <li className="mb-10 ml-4">
                   <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
                   <time className="mb-1 text-sm font-normal font-roboto leading-none text-gray-400 dark:text-gray-500">Step 01</time>
-                  <h3 className="text-lg font-archivo font-semibold text-gray-900 dark:text-white">Connect to Twilio Sandbox</h3>
+                  <h3 className="text-lg flex font-archivo font-semibold text-gray-900 dark:text-white">
+                    <FcSms className="mr-2 text-lg mt-1" />
+                    {' '}
+                    Connect to Twilio Sandbox
+                  </h3>
                   <p className="mb-4 text-base font-roboto font-normal text-gray-500 dark:text-gray-400">
                     You need to connect to Twilio Sandbox first by sending
                     {' '}
-                    <mark className="px-2 text-white bg-teal-600 rounded dark:bg-teal-500">join discover-series</mark>
+                    <strong className="font-semibold text-gray-900 dark:text-white">join discover-series</strong>
                     {' '}
                     Sandbox membership lasts for 72 hours. You can rejoin a Sandbox as many times as you want.
                   </p>
                   <div className="flex items-center flex-shrink-0">
-                    <a href="https://wa.me/+14155238886?text=join%20discover-series" className="px-5 font-roboto text-sm py-2 mr-2 font-medium text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800" target="_blank" rel="noreferrer">Connect now!</a>
+                    <a href="https://wa.me/+14155238886?text=join%20discover-series" className="px-5 font-roboto text-sm py-2 mr-2 rounded-full font-medium text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800" target="_blank" rel="noreferrer">Connect now!</a>
                   </div>
                 </li>
 
                 <li className="mb-10 ml-4">
                   <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
                   <time className="mb-1 text-sm font-normal leading-none font-roboto text-gray-400 dark:text-gray-500">Step 02</time>
-                  <h3 className="text-lg font-semibold text-gray-900 font-archivo dark:text-white">Verify number in WhatsApp</h3>
+                  <h3 className="text-lg flex font-semibold text-gray-900 font-archivo dark:text-white">
+                    <FcApproval className="mr-2 text-lg mt-1" />
+                    {' '}
+                    Verify number in WhatsApp
+                  </h3>
                   <p className="text-base mb-4 font-normal text-gray-500 font-roboto dark:text-gray-400">Verify if you receive a welcome message from us in your given WhatsApp number by clicking the button below.</p>
                   <TwilioSendVerify />
                 </li>
                 <li className="ml-4">
                   <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
-                  <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">April 2022</time>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">E-Commerce UI code in Tailwind CSS</h3>
-                  <p className="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements built on top of Tailwind CSS.</p>
+                  <time className="mb-1 text-sm font-normal leading-none font-roboto text-gray-400 dark:text-gray-500">Step 03</time>
+                  <h3 className="text-lg flex font-semibold text-gray-900 font-roboto dark:text-white">
+                    <FcMoneyTransfer className="mr-2 text-lg mt-1" />
+                    {' '}
+                    Start managing your finance
+                  </h3>
+                  <p className="text-base font-normal text-gray-500 font-roboto dark:text-gray-400">Get started with dozens of web components and interactive elements built on top of Tailwind CSS.</p>
                 </li>
               </ol>
 

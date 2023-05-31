@@ -34,7 +34,7 @@ function TwilioSendVerify() {
         <button
           onClick={handleClick}
           type="button"
-          className={`text-white font-roboto ${status === 'sent' ? 'bg-teal-700 hover:bg-teal-800 focus:ring-teal-300' : 'bg-red-700 hover:bg-red-800 focus:ring-red-300'} focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2 text-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 inline-flex items-center ${loading ? 'cursor-not-allowed opacity-50' : ''}`}
+          className={`text-white font-roboto ${status === 'sent' ? 'bg-teal-700 hover:bg-teal-800 focus:ring-teal-300' : 'bg-red-700 hover:bg-red-800 focus:ring-red-300'} focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-5 py-2 text-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 inline-flex items-center ${loading ? 'cursor-not-allowed opacity-50' : ''}`}
           disabled={loading || status === 'sent'}
         >
           {loading && (
@@ -56,7 +56,7 @@ function TwilioSendVerify() {
               />
             </svg>
           )}
-          {loading ? 'Loading...' : status === 'sent' ? 'Verified!' : status === 'failed' ? 'Not verified. Check number!' : 'Verify number'}
+          {loading ? 'Loading...' : status === 'sent' ? 'You\'re verified!' : status === 'failed' ? 'Not verified. Check number!' : 'Verify number'}
         </button>
         {/* <button onClick={handleClick} type="button" className="px-5 font-roboto text-sm py-2 mr-2 font-medium text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">Test Sandbox</button> */}
       </div>
