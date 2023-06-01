@@ -55,9 +55,9 @@ function TwilioBanner() {
                   <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
                   <time className="mb-1 text-sm font-normal font-roboto leading-none text-gray-400 dark:text-gray-500">Step 01</time>
                   <h3 className="text-lg flex font-archivo font-semibold text-gray-900 dark:text-white">
-                    <FcSms className="mr-2 text-lg mt-1" />
-                    {' '}
                     Connect to Twilio Sandbox
+                    <FcSms className="ml-2 text-lg mt-1" />
+                    {' '}
                   </h3>
                   <p className="mb-4 text-base font-roboto font-normal text-gray-500 dark:text-gray-400">
                     You need to connect to Twilio Sandbox first by sending
@@ -75,9 +75,9 @@ function TwilioBanner() {
                   <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
                   <time className="mb-1 text-sm font-normal leading-none font-roboto text-gray-400 dark:text-gray-500">Step 02</time>
                   <h3 className="text-lg flex font-semibold text-gray-900 font-archivo dark:text-white">
-                    <FcApproval className="mr-2 text-lg mt-1" />
-                    {' '}
                     Verify number in WhatsApp
+                    <FcApproval className="ml-2 text-lg mt-1" />
+                    {' '}
                   </h3>
                   <p className="text-base mb-4 font-normal text-gray-500 font-roboto dark:text-gray-400">Verify if you receive a welcome message from us in your given WhatsApp number by clicking the button below.</p>
                   <TwilioSendVerify />
@@ -86,9 +86,9 @@ function TwilioBanner() {
                   <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
                   <time className="mb-1 text-sm font-normal leading-none font-roboto text-gray-400 dark:text-gray-500">Step 03</time>
                   <h3 className="text-lg flex font-semibold text-gray-900 font-roboto dark:text-white">
-                    <FcMoneyTransfer className="mr-2 text-lg mt-1" />
-                    {' '}
                     Start managing your finance
+                    <FcMoneyTransfer className="ml-2 text-lg mt-1" />
+                    {' '}
                   </h3>
                   <p className="text-base font-normal text-gray-500 font-roboto dark:text-gray-400">Get started with dozens of web components and interactive elements built on top of Tailwind CSS.</p>
                 </li>
