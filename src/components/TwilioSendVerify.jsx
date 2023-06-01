@@ -12,7 +12,7 @@ function TwilioSendVerify() {
   const handleClick = () => {
     setLoading(true);
 
-    axios.get('http://localhost:3001/send')
+    axios.get('http://localhost:3001/verify')
       .then((response) => {
         if (response.status === 201) {
           setStatus('sent');
