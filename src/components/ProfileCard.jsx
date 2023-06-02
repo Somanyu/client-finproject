@@ -45,7 +45,7 @@ function ProfileCard(props) {
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white font-archivo">{userData.fullName}</h5>
         <span className="text-sm text-gray-500 dark:text-gray-400 font-roboto">{userData.email}</span>
         <div className="flex mt-4 space-x-3 md:mt-6">
-          <button type="button" className="text-teal-700 hover:text-white border border-teal-700 hover:bg-teal-600 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-full font-archivo text-sm px-5 py-2.5 text-center mr-2 mb-2 hover:drop-shadow-lg dark:border-teal-500 dark:text-teal-500 dark:hover:text-white dark:hover:bg-teal-600 dark:focus:ring-teal-800">Edit profile</button>
+          <button type="button" className="text-emerald-700 hover:text-white border border-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-full font-archivo text-sm px-5 py-2.5 text-center mr-2 mb-2 hover:drop-shadow-lg dark:border-emerald-500 dark:text-emerald-500 dark:hover:text-white dark:hover:bg-emerald-600 dark:focus:ring-emerald-800">Edit profile</button>
           <button type="button" onClick={handleLogout} className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 font-archivo hover:drop-shadow-lg dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Log out</button>
         </div>
       </div>
