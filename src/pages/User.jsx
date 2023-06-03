@@ -121,7 +121,7 @@ function User() {
             {userData && <ProfileCard userData={userData.user} />}
           </div>
           <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-7 lg:col-start-6 lg:col-end-12 row-span-3">
-            <Table />
+            {userData && userData.user.expenses && <Table expenses={userData.user.expenses} />}
           </div>
         </div>
         <div className="grid grid-cols-12 gap-x-8 gap-y-8">
