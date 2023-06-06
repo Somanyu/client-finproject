@@ -14,7 +14,7 @@ function TwilioBanner() {
   return (
     <>
       <div>
-        <div id="marketing-banner" tabIndex="-1" className="relative bg-red-200 z-50 flex flex-col md:flex-row justify-between p-4 mb-5 -translate-x-1/2 border-2 rounded-lg shadow-sm w-3/4 left-1/2 top-6 dark:bg-gray-700 dark:border-gray-600">
+        <div id="marketing-banner" tabIndex="-1" className="relative z-50 flex flex-col md:flex-row justify-between p-4 mb-5 -translate-x-1/2 rounded-lg bg-white border-2 border-gray-100 drop-shadow-xl w-3/4 left-1/2 top-6 dark:bg-gray-700 dark:border-gray-600">
           <div className="flex flex-col items-start mb-3 mr-4 md:items-center md:flex-row md:mb-0">
             <a href="https://flowbite.com/" className="flex items-center mb-2 border-gray-200 md:pr-4 md:mr-4 md:border-r md:mb-0 dark:border-gray-600">
               <CgTwilio className="mr-2 text-2xl text-red-600" />
