@@ -12,6 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { authActions, persistor } from '../store/index';
+import apiEndpoints from '../utils/apiEndpoints';
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string()
@@ -23,6 +24,8 @@ const SignInSchema = Yup.object().shape({
 });
 
 function SignIn() {
+  const endpoints = apiEndpoints();
+
   const history = useNavigate();
   const dispatch = useDispatch();
   return (
@@ -42,7 +45,8 @@ function SignIn() {
               validationSchema={SignInSchema}
               onSubmit={async (values, { resetForm }) => {
                 try {
-                  const response = await axios.post('http://localhost:3001/auth/login', values);
+                  // const response = await axios.post('https://server-finproject.onrender.com/auth/login', values);
+                  const response = await axios.post(endpoints.login, values);
                   resetForm({ values: '' });
                   if (response.status === 201) {
                     // If user sign in is success.

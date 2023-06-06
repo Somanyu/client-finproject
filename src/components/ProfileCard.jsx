@@ -9,17 +9,20 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { authActions, persistor } from '../store';
+import apiEndpoints from '../utils/apiEndpoints';
 
 axios.defaults.withCredentials = true;
 
 function ProfileCard(props) {
+  const endpoints = apiEndpoints();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
   const history = useNavigate();
   const { userData } = props;
 
   const logoutRequest = async () => {
-    const response = await axios.post('http://localhost:3001/auth/logout', null, {
+    // const response = await axios.post('http://localhost:3001/auth/logout', null, {
+    const response = await axios.post(endpoints.logout, null, {
       withCredentials: true,
     });
 

@@ -19,6 +19,7 @@ import {
 import ProfileCard from '../components/ProfileCard';
 import Table from '../components/Table';
 import TwilioBanner from '../components/TwilioBanner';
+import apiEndpoints from '../utils/apiEndpoints';
 
 axios.defaults.withCredentials = true;
 // let FIRST_RENDER = true;
@@ -62,10 +63,13 @@ export const chartData = {
 };
 
 function User() {
+  const endpoints = apiEndpoints();
+
   const [userData, setUserData] = useState();
 
   const sendRequest = async () => {
-    const response = await axios.get('http://localhost:3001/user', {
+    // const response = await axios.get('https://server-finproject.onrender.com/user', {
+    const response = await axios.get(endpoints.user, {
       withCredentials: true,
     }).catch((err) => console.log(err));
     const data = await response.data;
@@ -73,7 +77,8 @@ function User() {
   };
 
   const refreshToken = async () => {
-    const tokenResponse = await axios.get('http://localhost:3001/refresh', {
+    // const tokenResponse = await axios.get('https://server-finproject.onrender.com/refresh', {
+    const tokenResponse = await axios.get(endpoints.refresh, {
       withCredentials: true,
     }).catch((err) => console.log(err));
 

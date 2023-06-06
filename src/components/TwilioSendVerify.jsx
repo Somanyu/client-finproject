@@ -4,15 +4,19 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
 import axios from 'axios';
+import apiEndpoints from '../utils/apiEndpoints';
 
 function TwilioSendVerify() {
+  const endpoints = apiEndpoints();
+
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState('');
 
   const handleClick = () => {
     setLoading(true);
 
-    axios.get('http://localhost:3001/verify')
+    // axios.get('https://server-finproject.onrender.com/verify')
+    axios.get(endpoints.twilioVerify)
       .then((response) => {
         if (response.status === 201) {
           setStatus('sent');

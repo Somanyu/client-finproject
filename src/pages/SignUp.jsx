@@ -11,6 +11,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import apiEndpoints from '../utils/apiEndpoints';
 
 const SignUpSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -33,6 +34,8 @@ const SignUpSchema = Yup.object().shape({
 });
 
 function SignUp() {
+  const endpoints = apiEndpoints();
+
   const history = useNavigate();
   return (
     <div>
@@ -53,7 +56,8 @@ function SignUp() {
               validationSchema={SignUpSchema}
               onSubmit={async (values, { resetForm }) => {
                 try {
-                  const response = await axios.post('http://localhost:3001/auth/register', values);
+                  // const response = await axios.post('https://server-finproject.onrender.com/auth/register', values);
+                  const response = await axios.post(endpoints.register, values);
                   resetForm({ values: '' });
                   if (response.status === 201) {
                     // If user sign up is success.
