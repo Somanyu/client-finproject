@@ -1,0 +1,9 @@
+routes:
+  - path: "/*"
+    headers:
+      - key: "Access-Control-Allow-Origin"
+        value: "*"  # Change this to desired origin
+      - key: "Access-Control-Allow-Methods"
+        value: "GET, POST, PUT, DELETE, OPTIONS"  # Include the allowed HTTP methods for app
+      - key: "Access-Control-Allow-Headers"
+        value: "Origin, X-Requested-With, Content-Type, Accept, Authorization"  # Include the allowed headers for app
