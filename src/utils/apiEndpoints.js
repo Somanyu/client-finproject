@@ -1,6 +1,6 @@
 // apiEndpoints.js
 
-const BASE_URL = 'https://server-finproject.onrender.com';
+const BASE_URL = 'https://api.somanyu.tech/';
 
 function apiEndpoints() {
   return {
