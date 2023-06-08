@@ -1,6 +1,6 @@
 // apiEndpoints.js
 
-const BASE_URL = 'https://api.somanyu.tech/';
+const BASE_URL = 'https://api.somanyu.tech';
 
 function apiEndpoints() {
   return {
