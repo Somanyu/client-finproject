@@ -11,6 +11,7 @@ function apiEndpoints() {
     twilioVerify: `${BASE_URL}/verify`,
     refresh: `${BASE_URL}/refresh`,
     user: `${BASE_URL}/user`,
+    updateUser: `${BASE_URL}/user/update`,
   };
 }
 
