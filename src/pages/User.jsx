@@ -22,7 +22,6 @@ import TwilioBanner from '../components/TwilioBanner';
 import apiEndpoints from '../utils/apiEndpoints';
 
 axios.defaults.withCredentials = true;
-// let FIRST_RENDER = true;
 
 ChartJS.register(
   CategoryScale,
@@ -34,7 +33,7 @@ ChartJS.register(
   Legend,
 );
 
-export const options = {
+export const monthlyOptions = {
   maintainAspectRatio: true,
   responsive: true,
   plugins: {
@@ -43,24 +42,26 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: 'Monthly',
+    },
+  },
+};
+
+export const yearlyOptions = {
+  maintainAspectRatio: true,
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: 'Yearly',
     },
   },
 };
 
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const chartData = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [65, 59, 80, 81, 56, 55, 40],
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-  ],
-};
 
 function User() {
   const endpoints = apiEndpoints();
@@ -68,7 +69,6 @@ function User() {
   const [userData, setUserData] = useState();
 
   const sendRequest = async () => {
-    // const response = await axios.get('https://server-finproject.onrender.com/user', {
     const response = await axios.get(endpoints.user, {
       withCredentials: true,
     }).catch((err) => console.log(err));
@@ -77,7 +77,6 @@ function User() {
   };
 
   const refreshToken = async () => {
-    // const tokenResponse = await axios.get('https://server-finproject.onrender.com/refresh', {
     const tokenResponse = await axios.get(endpoints.refresh, {
       withCredentials: true,
     }).catch((err) => console.log(err));
@@ -85,19 +84,6 @@ function User() {
     const tokenData = await tokenResponse.data;
     return tokenData;
   };
-
-  // useEffect(() => {
-  //   if (FIRST_RENDER) {
-  //     sendRequest().then((data) => setUserData(data));
-  //     FIRST_RENDER = false;
-  //   }
-
-  //   const refreshTokenInterval = setInterval(() => {
-  //     refreshToken().then((data) => setUserData(data));
-  //   }, 1000 * 30);
-
-  //   return () => clearInterval(refreshTokenInterval);
-  // }, []);
 
   useEffect(() => {
     sendRequest()
@@ -117,6 +103,36 @@ function User() {
     return () => clearInterval(refreshTokenInterval);
   }, []);
 
+  // Calculate monthly expenses
+  const calculateMonthlyExpenses = (expenses) => {
+    const expensesByMonth = {};
+    expenses.forEach((expense) => {
+      const date = new Date(expense.date);
+      const month = date.getMonth();
+      // eslint-disable-next-line no-prototype-builtins
+      if (!expensesByMonth.hasOwnProperty(month)) {
+        expensesByMonth[month] = [];
+      }
+      expensesByMonth[month].push(expense.price);
+    });
+
+    const monthlyTotalExpenses = Object.values(expensesByMonth).map((monthExpenses) => monthExpenses.reduce((sum, expense) => sum + expense, 0));
+
+    return monthlyTotalExpenses;
+  };
+
+  const monthlyChartData = {
+    labels,
+    datasets: [
+      {
+        label: 'Expenses',
+        data: userData?.user?.expenses ? calculateMonthlyExpenses(userData.user.expenses) : [],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  };
+
   return (
     <>
       <TwilioBanner />
@@ -132,12 +148,22 @@ function User() {
         <div className="grid grid-cols-12 gap-x-8 gap-y-8">
           <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-6 lg:col-start-2 lg:col-end-7">
             <div className="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-              <Line options={options} data={chartData} />
+              {userData?.user?.expenses ? (
+                <Line options={monthlyOptions} data={monthlyChartData} />
+              ) : (
+                <p>No expenses yet</p>
+              )}
+              {/* <Line options={options} data={chartData} /> */}
             </div>
           </div>
           <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-6 lg:col-start-7 lg:col-end-12">
             <div className="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-              <Line options={options} data={chartData} />
+              {userData?.user?.expenses ? (
+                <Line options={monthlyOptions} data={monthlyChartData} />
+              ) : (
+                <p>No expenses yet</p>
+              )}
+              {/* <Line options={options} data={chartData} /> */}
             </div>
           </div>
         </div>
