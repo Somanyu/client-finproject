@@ -61,8 +61,8 @@ export const yearlyOptions = {
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
+const monthlyLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const yearlyLabels = ['2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032', '2033', '2034', '2035', '2036', '2037', '2038', '2039'];
 function User() {
   const endpoints = apiEndpoints();
 
@@ -122,13 +122,43 @@ function User() {
   };
 
   const monthlyChartData = {
-    labels,
+    labels: monthlyLabels,
     datasets: [
       {
         label: 'Expenses',
         data: userData?.user?.expenses ? calculateMonthlyExpenses(userData.user.expenses) : [],
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  };
+
+  // Calculate yearly expenses
+  const calculateYearlyExpenses = (expenses) => {
+    const expensesByYear = {};
+    expenses.forEach((expense) => {
+      const date = new Date(expense.date);
+      const year = date.getFullYear();
+      // eslint-disable-next-line no-prototype-builtins
+      if (!expensesByYear.hasOwnProperty(year)) {
+        expensesByYear[year] = [];
+      }
+      expensesByYear[year].push(expense.price);
+    });
+
+    const yearlyTotalExpenses = Object.values(expensesByYear).map((yearExpenses) => yearExpenses.reduce((sum, expense) => sum + expense, 0));
+
+    return yearlyTotalExpenses;
+  };
+
+  const yearlyChartData = {
+    labels: yearlyLabels,
+    datasets: [
+      {
+        label: 'Expenses',
+        data: userData?.user?.expenses ? calculateYearlyExpenses(userData.user.expenses) : [],
+        borderColor: 'rgb(54, 162, 235)',
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
       },
     ],
   };
@@ -159,7 +189,7 @@ function User() {
           <div className="col-span-12 md:col-start-4 md:col-span-8 lg:col-span-6 lg:col-start-7 lg:col-end-12">
             <div className="block p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
               {userData?.user?.expenses ? (
-                <Line options={monthlyOptions} data={monthlyChartData} />
+                <Line options={yearlyOptions} data={yearlyChartData} />
               ) : (
                 <p>No expenses yet</p>
               )}
