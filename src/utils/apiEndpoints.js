@@ -12,6 +12,7 @@ function apiEndpoints() {
     refresh: `${BASE_URL}/refresh`,
     user: `${BASE_URL}/user`,
     updateUser: `${BASE_URL}/user/update`,
+    deleteUser: `${BASE_URL}/user/delete`,
   };
 }
 

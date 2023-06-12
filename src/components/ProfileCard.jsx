@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
@@ -12,7 +13,7 @@ import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import { authActions, persistor } from '../store';
 import apiEndpoints from '../utils/apiEndpoints';
 
@@ -46,7 +47,6 @@ function ProfileCard(props) {
   const [status, setStatus] = useState('');
 
   const logoutRequest = async () => {
-    // const response = await axios.post('http://localhost:3001/auth/logout', null, {
     const response = await axios.post(endpoints.logout, null, {
       withCredentials: true,
     });
@@ -62,6 +62,27 @@ function ProfileCard(props) {
   const handleLogout = () => {
     localStorage.clear();
     logoutRequest().then(() => {
+      persistor.purge();
+      dispatch(authActions.setLoggedOut());
+    });
+  };
+
+  const deleteUser = async () => {
+    const response = await axios.get(endpoints.deleteUser, null, {
+      withCredentials: true,
+    });
+
+    if (response.status === 201) {
+      history('/signin');
+      return response;
+    }
+
+    return new Error('Unable to delete user. Try again!');
+  };
+
+  const handleDeleteUser = () => {
+    localStorage.clear();
+    deleteUser().then(() => {
       persistor.purge();
       dispatch(authActions.setLoggedOut());
     });
@@ -196,28 +217,39 @@ function ProfileCard(props) {
                       ) : null}
                       <label htmlFor="floating_standard" className="after:content-['*'] after:ml-0.5 after:text-red-500 absolute font-roboto text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone</label>
                     </div>
-                    <button type="submit" className="w-full mt-14 text-emerald-700 hover:text-white border border-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-full font-archivo text-sm px-5 py-2.5 text-center mr-2 mb-2 hover:drop-shadow-lg dark:border-emerald-500 dark:text-emerald-500 dark:hover:text-white dark:hover:bg-emerald-600 dark:focus:ring-emerald-800" disabled={loading || status === 'updated'} style={{ marginTop: '3rem' }}>
-                      {loading && (
-                        <svg
-                          aria-hidden="true"
-                          role="status"
-                          className="inline w-4 h-4 mr-3 text-white animate-spin"
-                          viewBox="0 0 100 101"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                            fill="#E5E7EB"
-                          />
-                          <path
-                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      )}
-                      {loading ? 'Updating...' : status === 'updated' ? 'Updated!' : status === 'failed' ? 'Not update. Try again!' : 'Update profile'}
-                    </button>
+                    <div className="text-sm font-roboto font-medium text-gray-500 dark:text-gray-300">
+                      We use
+                      {' '}
+                      <a href="https://www.dicebear.com/styles/open-peeps" className="text-blue-700 hover:underline dark:text-blue-500">Dicebear API</a>
+                      {' '}
+                      to generate avatars based on full name.
+                      {' '}
+                    </div>
+                    <div className="mt-4 grid space-y-1 md:mt-6">
+                      <button type="submit" className="block text-emerald-700 hover:text-white border border-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-full font-archivo text-sm px-5 py-2.5 text-center mb-2 hover:drop-shadow-lg dark:border-emerald-500 dark:text-emerald-500 dark:hover:text-white dark:hover:bg-emerald-600 dark:focus:ring-emerald-800" disabled={loading || status === 'updated'} style={{ marginTop: '2rem' }}>
+                        {loading && (
+                          <svg
+                            aria-hidden="true"
+                            role="status"
+                            className="inline w-4 h-4 mr-3 text-white animate-spin"
+                            viewBox="0 0 100 101"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                              fill="#E5E7EB"
+                            />
+                            <path
+                              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        )}
+                        {loading ? 'Updating...' : status === 'updated' ? 'Updated!' : status === 'failed' ? 'Not update. Try again!' : 'Update profile'}
+                      </button>
+                      <button type="button" onClick={handleDeleteUser} className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-6 py-2.5 text-center mb-2 font-archivo hover:drop-shadow-lg dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete profile</button>
+                    </div>
                   </Form>
                 )}
               </Formik>
@@ -234,6 +266,7 @@ ProfileCard.propTypes = {
     fullName: PropTypes.string,
     email: PropTypes.string,
     phone: PropTypes.string,
+    _id: PropTypes.string,
   }).isRequired,
 };
 
