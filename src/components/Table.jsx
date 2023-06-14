@@ -10,8 +10,8 @@ function Table({ expenses }) {
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <caption className="p-5 font-archivo text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-          Our products
-          <p className="mt-1 text-sm font-normal font-roboto text-gray-500 dark:text-gray-400">Browse a list of Flowbite products designed to help you work and play, stay organized, get answers, keep in touch, grow your business, and more.</p>
+          Your Expenses
+          <p className="mt-1 text-sm font-normal font-roboto text-gray-500 dark:text-gray-400">Track and visualize your expenses on a yearly and monthly basis with easy-to-read graphs. Easily view every expense you&#39;ve made, including the product price and purchase date, for any specific month or year.</p>
         </caption>
         <thead className="text-xs text-gray-700 font-archivo uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr className="">
@@ -41,7 +41,11 @@ function Table({ expenses }) {
               >
                 {expense.product}
               </th>
-              <td className="px-6 py-4">{expense.product}</td>
+              <td className="px-6 py-4">
+                {expense.price}
+                {' '}
+                /-
+              </td>
               <td className="px-6 py-4">{new Date(expense.date).toDateString()}</td>
               <td className="px-6 py-4 text-right">
                 <a href="/" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
