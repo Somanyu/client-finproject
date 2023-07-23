@@ -1,11 +1,29 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable array-callback-return */
 /* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+const ITEMS_PER_PAGE = 5; // Number of items to display per page
+
 function Table({ expenses }) {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(expenses.length / ITEMS_PER_PAGE);
+
+  // Calculate the index of the first and last item to be displayed on the current page
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+
+  // Get the current items to be displayed on the current page
+  const currentItems = expenses.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -24,13 +42,13 @@ function Table({ expenses }) {
             <th scope="col" className="px-6 py-3">
               Date
             </th>
-            <th scope="col" className="px-6 py-3">
+            {/* <th scope="col" className="px-6 py-3">
               <span className="sr-only">Edit</span>
-            </th>
+            </th> */}
           </tr>
         </thead>
         <tbody className="font-roboto">
-          {expenses.map((expense) => (
+          {currentItems.map((expense) => (
             <tr
               key={expense.price}
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -47,15 +65,32 @@ function Table({ expenses }) {
                 /-
               </td>
               <td className="px-6 py-4">{new Date(expense.date).toDateString()}</td>
-              <td className="px-6 py-4 text-right">
+              {/* <td className="px-6 py-4 text-right">
                 <a href="/" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                   Edit
                 </a>
-              </td>
+              </td> */}
             </tr>
           ))}
         </tbody>
       </table>
+      <ol className="flex justify-center gap-1 text-xs font-medium font-archivo my-4">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <li>
+            <button
+              type="button"
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`block h-8 w-8 rounded ${currentPage === index + 1
+                ? 'border-blue-600 bg-blue-600 text-center leading-8 text-white'
+                : 'border border-gray-100 bg-white text-center leading-8 text-gray-900'
+              }`}
+            >
+              {index + 1}
+            </button>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
