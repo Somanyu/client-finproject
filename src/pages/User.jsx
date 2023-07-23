@@ -1,5 +1,4 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-plusplus */
 /* eslint-disable no-console */
 /* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -62,7 +61,7 @@ export const yearlyOptions = {
   },
 };
 
-// const monthlyLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const monthlyLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const yearlyLabels = ['2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032', '2033', '2034', '2035', '2036', '2037', '2038', '2039'];
 function User() {
   const endpoints = apiEndpoints();
@@ -105,7 +104,7 @@ function User() {
   }, []);
 
   // Calculate monthly expenses
-  const calculateMonthlyExpenses = (expenses, startMonth) => {
+  const calculateMonthlyExpenses = (expenses) => {
     const expensesByMonth = {};
     expenses.forEach((expense) => {
       const date = new Date(expense.date);
@@ -117,33 +116,17 @@ function User() {
       expensesByMonth[month].push(expense.price);
     });
 
-    // const monthlyTotalExpenses = Object.values(expensesByMonth).map((monthExpenses) => monthExpenses.reduce((sum, expense) => sum + expense, 0));
-
-    const monthlyTotalExpenses = [];
-    for (let i = startMonth; i < startMonth + 12; i++) {
-      const monthExpenses = expensesByMonth[i % 12] || [];
-      monthlyTotalExpenses.push(monthExpenses.reduce((sum, expense) => sum + expense, 0));
-    }
+    const monthlyTotalExpenses = Object.values(expensesByMonth).map((monthExpenses) => monthExpenses.reduce((sum, expense) => sum + expense, 0));
 
     return monthlyTotalExpenses;
   };
-
-  const getCurrentMonth = () => {
-    const today = new Date();
-    return today.getMonth();
-  };
-
-  const currentMonth = getCurrentMonth();
-  // eslint-disable-next-line no-unsafe-optional-chaining
-  const startMonth = currentMonth - userData?.user?.expenses[0]?.date?.getMonth() || 0;
-  const monthlyLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].slice(startMonth).concat(['January', 'February', 'March', 'April'].slice(0, startMonth));
 
   const monthlyChartData = {
     labels: monthlyLabels,
     datasets: [
       {
         label: 'Expenses',
-        data: userData?.user?.expenses ? calculateMonthlyExpenses(userData.user.expenses, startMonth) : [],
+        data: userData?.user?.expenses ? calculateMonthlyExpenses(userData.user.expenses) : [],
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
