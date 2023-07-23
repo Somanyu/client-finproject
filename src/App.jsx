@@ -20,13 +20,9 @@ function App() {
       <Routes>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/" element={<SignUp />} />
-        {/* {isLoggedIn ? (
-          <Route path="/user" element={<User />} />
-        ) : (
-          <Route path="/user" element={<Navigate replace to="/signin" />} />
-        )} */}
 
         {isLoggedIn && <Route path="/user" element={<User />} />}
+
         <Route path="/user" element={<Navigate replace to="/signin" />} />
       </Routes>
     </BrowserRouter>

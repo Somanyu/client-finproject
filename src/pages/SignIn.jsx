@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -10,7 +10,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authActions, persistor } from '../store/index';
 import apiEndpoints from '../utils/apiEndpoints';
 
@@ -26,8 +26,19 @@ const SignInSchema = Yup.object().shape({
 function SignIn() {
   const endpoints = apiEndpoints();
 
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
   const history = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Check if the user is already logged in
+    if (isLoggedIn) {
+      // Redirect to /user if the user is logged in
+      history('/user');
+    }
+  }, [isLoggedIn, history]);
+
   return (
     <div>
       <ToastContainer />
